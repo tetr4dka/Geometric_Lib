@@ -1,10 +1,11 @@
 #include <iostream>
 #include "Segment.h"
 #include "Figure.h"
+#include <ctime>
 
 using namespace std;
 
-void Vertexes(vector <point> &vec) { // Г‡Г ГЇГ®Г«Г­ГҐГ­ГЁГҐ ГўГҐГЄГІГ®Г°Г  ГІГ®Г·ГҐГЄ Г¤Г«Гї Г¬Г­Г®ГЈГ®ГіГЈГ®Г«ГјГ­ГЁГЄГ 
+void Vertexes(vector <point> &vec) { // Заполнение вектора точек для многоугольника
 	cout << "Enter number of vertexes: " << endl;
 	int n;
 	cin >> n;
@@ -19,9 +20,38 @@ void Vertexes(vector <point> &vec) { // Г‡Г ГЇГ®Г«Г­ГҐГ­ГЁГҐ ГўГҐГЄГІГ®Г°Г  ГІГ®
 		cout << "Wrong number of vertexes" << endl;
 }
 
+void Cloud(vector <point>& vec) {
+	srand(time(NULL));
+	cout << "Enter number of vertexes: ";
+	int n;
+	cin >> n;
+	int w;
+	cout << "Enter max coordinates: ";
+	cin >> w;
+	for (int i = 0; i < n; i++) {
+		
+		point a;
+		a.x = rand() % w;
+		a.y = rand() % w;
+		cout << a.x << " " << a.y << endl;
+		vec.push_back(a);
+	}
+}
+
 
 
 int main() {
+
+	vector <point> vec;
+	Cloud(vec);
+	
+
+
+	convex_hull(vec);
+
+	Polygon shell(vec);
+	shell.Read();
+
 
 	/*point a, b;
 	cin >> a.x >> a.y >> b.x >> b.y;
@@ -40,7 +70,11 @@ int main() {
 
 
 
-	vector <point> vec;
+
+
+
+
+	/*vector <point> vec;
 	Vertexes(vec);
 
 	Polygon pol(vec);
@@ -49,8 +83,15 @@ int main() {
 	point a;
 	cin >> a.x >> a.y;
 	
-	cout << "PI " << pol.Point_Inside(a) << endl;
+	cout << "PI " << pol.Point_Inside(a) << endl;*/
 	
+
+
+
+
+
+
+
 
 
 	/*point a, b;
