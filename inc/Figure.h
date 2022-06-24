@@ -48,6 +48,12 @@ public:
 		m_vertex = vec;
 	}
 
+	void Read() {
+		for (int i = 0; i < m_vertex.size(); i++) {
+			cout << i + 1 << " point: " << m_vertex[i].x << " " << m_vertex[i].y << endl;
+		}
+	}
+
 	float Area() {
 		float s = 0;
 		for (int i = 1; i <= m_vertex.size() - 2; i++) {
@@ -120,7 +126,7 @@ public:
 		return false;
 	}
 
-	int Graham(double D_x[], double D_y[], int n, double* C_x, double* C_y) {
+	/*int Graham(double D_x[], double D_y[], int n, double* C_x, double* C_y) {
 		double angle[2020], di[2020];
 		double min_x = INT_MAX;
 		double min_y = INT_MAX;
@@ -138,16 +144,67 @@ public:
 			Segment M(a, b);
 			di[i] = M.Length();
 		}
-	}
+		quickSortAngle(angle, D_x, D_y, di, 1, n - 1);
+		for (int i = 1; i < n; i++) {
+			if (angle[i] == angle[i + 1]) {
+				int start = 1;
+				while ((angle[i] == angle[i + 1]) && (i < n - 2)) i++;
+				int finish = i;
+				quickSortDist(D_x, D_y, di, start, finish);
+			}
+		}
+	}*/
+
+
+
 
 
 private:
 	vector <point> m_vertex;
 
-	double SGN(point a, point b, point c) { // Ã‡Ã­Ã Ãª Ã®Ã°Ã¨Ã¥Ã­Ã²Ã¨Ã°Ã®Ã¢Ã Ã­Ã­Ã®Ã© Ã¯Ã«Ã®Ã¹Ã Ã¤Ã¨.
+	double SGN(point a, point b, point c) { // Çíàê îðèåíòèðîâàííîé ïëîùàäè.
 		float check = (c.x - a.x) * (b.y - a.y) - (b.x - a.x) * (c.y - a.y);
 		if (check > 0) return 1;
 		if (check < 0) return -1;
 		return 0;
 	}
 };
+
+
+bool cmp(point a, point b) {
+	return a.x < b.x || a.x == b.x && a.y < b.y;
+}
+
+bool cw(point a, point b, point c) {
+	return a.x * (b.y - c.y) + b.x * (c.y - a.y) + c.x * (a.y - b.y) < 0;
+}
+
+bool ccw(point a, point b, point c) {
+	return a.x * (b.y - c.y) + b.x * (c.y - a.y) + c.x * (a.y - b.y) > 0;
+}
+
+void convex_hull(vector<point>& a) {
+	if (a.size() == 1)  return;
+	sort(a.begin(), a.end(), &cmp);
+	point p1 = a[0], p2 = a.back();
+	vector<point> up, down;
+	up.push_back(p1);
+	down.push_back(p1);
+	for (size_t i = 1; i < a.size(); ++i) {
+		if (i == a.size() - 1 || cw(p1, a[i], p2)) {
+			while (up.size() >= 2 && !cw(up[up.size() - 2], up[up.size() - 1], a[i]))
+				up.pop_back();
+			up.push_back(a[i]);
+		}
+		if (i == a.size() - 1 || ccw(p1, a[i], p2)) {
+			while (down.size() >= 2 && !ccw(down[down.size() - 2], down[down.size() - 1], a[i]))
+				down.pop_back();
+			down.push_back(a[i]);
+		}
+	}
+	a.clear();
+	for (size_t i = 0; i < up.size(); ++i)
+		a.push_back(up[i]);
+	for (size_t i = down.size() - 2; i > 0; --i)
+		a.push_back(down[i]);
+}
