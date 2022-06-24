@@ -75,7 +75,7 @@ public:
 
 protected:
     point m_a, m_b;
-    double SGN(point a, point b, point c) { // Çíàê îğèåíòèğîâàííîé ïëîùàäè.
+    double SGN(point a, point b, point c) { // Ã‡Ã­Ã Ãª Ã®Ã°Ã¨Ã¥Ã­Ã²Ã¨Ã°Ã®Ã¢Ã Ã­Ã­Ã®Ã© Ã¯Ã«Ã®Ã¹Ã Ã¤Ã¨.
         float check = (c.x - a.x) * (b.y - a.y) - (b.x - a.x) * (c.y - a.y);
         if (check > 0) return 1;
         if (check < 0) return -1;
