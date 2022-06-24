@@ -4,7 +4,7 @@
 
 using namespace std;
 
-void Vertexes(vector <point> &vec) { // Заполнение вектора точек для многоугольника
+void Vertexes(vector <point> &vec) { // Г‡Г ГЇГ®Г«Г­ГҐГ­ГЁГҐ ГўГҐГЄГІГ®Г°Г  ГІГ®Г·ГҐГЄ Г¤Г«Гї Г¬Г­Г®ГЈГ®ГіГЈГ®Г«ГјГ­ГЁГЄГ 
 	cout << "Enter number of vertexes: " << endl;
 	int n;
 	cin >> n;
